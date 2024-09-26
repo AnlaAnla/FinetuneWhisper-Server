@@ -24,6 +24,8 @@ class VideoSplitter:
 
     def run(self, media_folder, data_save_dir):
         audio_save_dir = os.path.join(data_save_dir, "audio")
+        self.media_num = len(os.listdir(audio_save_dir))
+
         os.makedirs(audio_save_dir, exist_ok=True)
 
         for media_name in os.listdir(media_folder):

@@ -1,3 +1,5 @@
 {
-  "name": "safaf"
+  "label_studio_token": "6e5785f3e71fcd05a3ae10d25931b9db8991aeb3",
+  "remote_data_server_ip": "truenas.lan:9000",
+  "label_studio_url": "http://192.168.66.117:8081"
 }
