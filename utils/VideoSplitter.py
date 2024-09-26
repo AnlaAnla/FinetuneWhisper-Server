@@ -24,9 +24,9 @@ class VideoSplitter:
 
     def run(self, media_folder, data_save_dir):
         audio_save_dir = os.path.join(data_save_dir, "audio")
-        self.media_num = len(os.listdir(audio_save_dir))
-
         os.makedirs(audio_save_dir, exist_ok=True)
+
+        self.media_num = len(os.listdir(audio_save_dir))
 
         for media_name in os.listdir(media_folder):
             media_path = os.path.join(media_folder, media_name)
@@ -166,7 +166,7 @@ class VideoSplitter:
 
             print(f"{i}: [{start_time}, {end_time}] : {text}")
 
-        pre_metadata_path = os.path.join(data_save_dir, "pre_metadata.csv")
+        pre_metadata_path = os.path.join(data_save_dir, "metadata.csv")
         meta_data = np.array(meta_data)
 
         if os.path.exists(pre_metadata_path):
