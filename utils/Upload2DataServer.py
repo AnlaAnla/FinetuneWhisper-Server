@@ -17,7 +17,7 @@ class Upload2DataServer:
         self.remote_data_server_ip = remote_data_server_ip
         self.label_studio_url = label_studio_url
 
-        self.audio_data_dir_path = r"C:\Code\ML\Audio\card_audio_data02"
+        self.audio_data_dir_path = os.path.abspath(audio_data_dir_path)
 
         if "audio" not in os.listdir(audio_data_dir_path):
             print(f"文件结构异常, 请检查目录: {audio_data_dir_path}")
@@ -27,6 +27,7 @@ class Upload2DataServer:
 
         # 如果有项目就改成自己的id
         # project_id = 10
+
         project_id = self.__creat_project(project_name)
         self.__upload_labelStudio(project_id)
 
@@ -38,7 +39,14 @@ class Upload2DataServer:
         }
         data = {
             "title": project_name,
-            "label_config": "<View><Audio name=\"audio\" value=\"$audio\" /><TextArea name=\"transcription\" value=\"$transcription\" toName=\"audio\" editable=\"true\" rows=\"5\" /></View>"
+            "label_config": '''
+                <View>
+                <Audio name="audio" value="$audio" zoom="true" hotkey="ctrl+enter" />
+                <Header value="修改标签" />
+                <TextArea name="transcription" toName="audio" value="$transcription" 
+                    rows="4" editable="true" maxSubmissions="1" />
+                </View>
+                '''
         }
 
         response = requests.post(url, headers=headers, data=json.dumps(data))
@@ -75,6 +83,9 @@ class Upload2DataServer:
                     object_name = data_dir_name + '/' + object_name
                 try:
                     # 上传文件
+                    print(f"准备上传   "
+                          f"object_name: {object_name},"
+                          f"file_path: {file_path}")
                     minio_client.fput_object(bucket_name, object_name, file_path)
                     print(f'上传minio: {file_path} as {object_name}')
                 except Exception as e:

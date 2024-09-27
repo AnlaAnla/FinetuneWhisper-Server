@@ -3,5 +3,5 @@
   "remote_data_server_ip": "truenas.lan:9000",
   "label_studio_url": "http://192.168.66.117:8081",
   "minio_access_key": "TQUDCSxXiw5D5hPBbm5J",
-  "minio_secret_key": "DB63Vk3qU81LQ0szSM7DyrL9rfswJG2qmjJ0BAq"
+  "minio_secret_key": "DB63Vk3qU81LQ0szSM7DyrL9rfswJG2qmjJ0BAqU"
 }

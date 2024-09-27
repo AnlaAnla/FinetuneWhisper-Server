@@ -11,17 +11,15 @@ audio_data_dir_path = os.path.abspath(audio_data_dir_path)
 
 print('连接minio')
 minio_client = Minio("truenas.lan:9000",
-                     access_key='TQUDCSxXiw5D5hPBbm5J',
-                     secret_key='DB63Vk3qU81LQ0szSM7DyrL9rfswJG2qmjJ0BAqU',
+                     access_key="TQUDCSxXiw5D5hPBbm5J",
+                     secret_key="DB63Vk3qU81LQ0szSM7DyrL9rfswJG2qmjJ0BAqU",
                      secure=False)
 print('minio成功连接')
-
-# 桶的名称是默认的, 取决于服务器的设置
 bucket_name = "label-studio-data"
-# 文件夹名称
+
+
 data_dir_name = os.path.split(audio_data_dir_path)[-1]
 
-# 遍历本地文件夹,上传所有文件到Minio
 print(f"开始向minio上传: {audio_data_dir_path}")
 for root, dirs, files in os.walk(audio_data_dir_path):
     for file in files:
@@ -39,4 +37,3 @@ for root, dirs, files in os.walk(audio_data_dir_path):
             print(f'上传minio: {file_path} as {object_name}')
         except Exception as e:
             print('minio错误: ', e)
-print('minio上传结束')

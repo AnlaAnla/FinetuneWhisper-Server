@@ -77,7 +77,7 @@ class FinetuneWhisper:
             warmup_steps=2,
             num_train_epochs=1,
             eval_strategy="steps",
-            fp16=True,
+            fp16=False,
             per_device_eval_batch_size=8,
             generation_max_length=128,
             logging_steps=100,

@@ -20,7 +20,7 @@ class VideoSplitter:
         model_size = "medium"
 
         self.media_num = 0
-        self.model = WhisperModel(model_size, device="cuda", compute_type="float16")
+        self.model = WhisperModel(model_size, device="cuda")
 
     def run(self, media_folder, data_save_dir):
         audio_save_dir = os.path.join(data_save_dir, "audio")
@@ -166,7 +166,7 @@ class VideoSplitter:
 
             print(f"{i}: [{start_time}, {end_time}] : {text}")
 
-        pre_metadata_path = os.path.join(data_save_dir, "metadata.csv")
+        pre_metadata_path = os.path.join(data_save_dir, "pre_metadata.csv")
         meta_data = np.array(meta_data)
 
         if os.path.exists(pre_metadata_path):

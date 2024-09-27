@@ -8,6 +8,7 @@ from utils.utils import zip_folder, unzip_file, read_config, save_config, downlo
 from utils.VideoSplitter import VideoSplitter
 from utils.FinetuneWhisper import FinetuneWhisper
 from utils.Upload2DataServer import Upload2DataServer
+from utils.ExportData import ExportData
 
 # 保存配置文件的路径
 Config_file_path = 'config.json'
@@ -26,7 +27,7 @@ os.makedirs(Temp_path, exist_ok=True)
 # Gradio函数
 def the1_upload_media2server(media_files, urls, folder_name):
     if folder_name is None:
-        folder_name = "Data_" + time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')
+        folder_name = "preData_" + time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')
 
     folder_path = os.path.join(Pre_data_path, folder_name)
     # 处理上传的媒体文件
@@ -81,6 +82,27 @@ def the2_split_upload(_folder_name: str, _project_name: str):
     return f"处理和上传结束 - {time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
 
 
+def the3_download_data(_project_id, _folder_name: str):
+    if int(_project_id) == 0:
+        return "请输入label-studio项目ID"
+
+    if _folder_name is None or _folder_name == '':
+        _folder_name = f"DataSet_{time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
+
+    audio_data_dir_path = os.path.abspath(os.path.join(Dataset_path, _folder_name))
+    os.makedirs(audio_data_dir_path, exist_ok=True)
+
+    label_studio_token = Config['label_studio_token']
+    label_studio_url = Config['label_studio_url']
+
+    ExportData(project_id=_project_id,
+               audio_data_dir_path=audio_data_dir_path,
+               label_studio_url=label_studio_url,
+               label_studio_token=label_studio_token)
+
+    return f"下载结束, 保存为: {_folder_name}"
+
+
 def the4_finetune_whisper(_folder_name):
     train_data_path = os.path.join(Dataset_path, _folder_name)
     train_data_abspath = os.path.abspath(train_data_path)
@@ -116,7 +138,7 @@ def create_gradio_page():
         with gr.Tab("2-处理并上传Label-Studio和Minio"):
             with gr.Row():
                 t2_folder_name = gr.Dropdown(choices=os.listdir(Pre_data_path), label="选择原始数据")
-                t2_project_name = gr.Textbox(lines=1, placeholder="输入label-studio项目名称, 注意不要和现有项目重名")
+                t2_project_name = gr.Textbox(lines=1, label="输入label-studio项目名称, 注意不要和现有项目重名")
             with gr.Row():
                 t2_result = gr.Textbox(label="处理结果")
 
@@ -124,7 +146,15 @@ def create_gradio_page():
             t2_btn.click(fn=the2_split_upload, inputs=[t2_folder_name, t2_project_name], outputs=[t2_result])
 
         with gr.Tab("3-下载训练数据"):
-            t3_folder_name = gr.Textbox(lines=1, placeholder="输入保存的数据集名称, 不输入则自动创建")
+            with gr.Row():
+                t3_project_id = gr.Number(label="输入label-studio项目ID")
+                t3_folder_name = gr.Textbox(lines=1, label="输入保存的数据集名称, 不输入则自动创建")
+            with gr.Row():
+                t3_result = gr.Textbox(label="处理结果")
+            t3_download_btn = gr.Button(value="开始下载", variant='primary')
+            t3_download_btn.click(fn=the3_download_data,
+                                  inputs=[t3_project_id, t3_folder_name],
+                                  outputs=[t3_result])
 
         with gr.Tab("4-微调模型"):
             with gr.Row():
