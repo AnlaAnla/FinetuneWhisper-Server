@@ -1,4 +1,5 @@
 import gradio as gr
+import sys
 import os
 import shutil
 import datetime
@@ -9,6 +10,11 @@ from utils.VideoSplitter import VideoSplitter
 from utils.FinetuneWhisper import FinetuneWhisper
 from utils.Upload2DataServer import Upload2DataServer
 from utils.ExportData import ExportData
+from utils.RecognizeAudio import RecognizeAudio
+
+if sys.prefix == "/media/martin/DATA/miniconda3/envs/yolov8":
+    os.environ["LD_LIBRARY_PATH"] = "/media/martin/DATA/miniconda3/envs/yolov8/lib/python3.8/site-packages/nvidia/cudnn/lib"
+
 
 # 保存配置文件的路径
 Config_file_path = 'config.json'
@@ -17,7 +23,9 @@ Config = read_config(Config_file_path)
 # 服务器文件夹路径
 Pre_data_path = 'pre_data'
 Dataset_path = 'train_dataset'
+Train_result_path = 'train_result/train'
 Temp_path = 'temp'
+Model_path = 'Model'
 
 os.makedirs(Pre_data_path, exist_ok=True)
 os.makedirs(Dataset_path, exist_ok=True)
@@ -111,11 +119,23 @@ def the4_finetune_whisper(_folder_name):
     return f"微调结束 - {time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
 
 
+def the5_recognize_audio(_model_folder_name, _media_path):
+    if _media_path is None:
+        return "请放入音频或视频"
+
+    _model_folder_path = os.path.join(Train_result_path, _model_folder_name, "adapter_model")
+    recognizer = RecognizeAudio(_model_folder_path)
+    book = recognizer.run(_media_path)
+    print(book)
+    return book
+
+
+
 def refresh_list():
     folder_name1 = gr.Dropdown(choices=os.listdir(Pre_data_path), label="选择原始数据")
     folder_name2 = gr.Dropdown(choices=os.listdir(Dataset_path), label="选择数据集名称")
-
-    return folder_name1, folder_name1, folder_name2
+    model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="选择模型名称")
+    return folder_name1, folder_name1, folder_name2, model_folder_name
 
 
 def create_gradio_page():
@@ -165,11 +185,18 @@ def create_gradio_page():
             t4_train_btn.click(fn=the4_finetune_whisper, inputs=[t4_folder_name], outputs=[t4_result])
 
         with gr.Tab("5-试用模型"):
-            with gr.Row():
-                t5_btn = gr.Button(value="语音识别", variant='primary')
+            with gr.Row("选择模型"):
+                t5_select_model_name = gr.Text(f"{os.listdir(Model_path)}")
+                t5_model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="选择模型名称")
+            t5_change_model_btn = gr.Button(value="切换模型", variant='primary')
+            with gr.Row("进行识别"):
+                t5_audio_file = gr.Audio(sources="upload", type="filepath")
+                t5_result = gr.Textbox()
+            t5_btn = gr.Button(value="语音识别", variant='primary')
+            t5_btn.click(fn=the5_recognize_audio, inputs=[t5_model_folder_name, t5_audio_file], outputs=[t5_result])
 
         refresh_btn = gr.Button("🌀刷新")
-        refresh_btn.click(fn=refresh_list, outputs=[t1_folder_name, t2_folder_name, t4_folder_name])
+        refresh_btn.click(fn=refresh_list, outputs=[t1_folder_name, t2_folder_name, t4_folder_name, t5_model_folder_name])
 
     page.launch(server_name='0.0.0.0', server_port=1234)
 

@@ -22,7 +22,7 @@ class ExportData:
 
         metadata = []
         for json_data in json_datas:
-            audio_path = 'audio/' + os.path.split(json_data['audio'])[-1]
+            audio_path = 'audio/' + f"id{project_id}_" + os.path.split(json_data['audio'])[-1]
 
             try:
                 self.__download_file(json_data['audio'], os.path.join(self.audio_data_dir_path, audio_path))
@@ -31,9 +31,22 @@ class ExportData:
                 print("下载异常", e)
 
         meta_data = np.array(metadata)
-        meta_data = pd.DataFrame(meta_data, columns=['file_name', 'sentence'])
         print(meta_data)
-        meta_data.to_csv(os.path.join(self.audio_data_dir_path, "metadata.csv"), encoding='utf-8', index=False)
+        meta_data_save_path = os.path.join(audio_data_dir_path, 'metadata.csv')
+
+        # 判断并生成或合并csv label
+        if not os.path.exists(meta_data_save_path):
+            meta_data = pd.DataFrame(meta_data, columns=['file_name', 'sentence'])
+            meta_data.to_csv(meta_data_save_path, encoding='utf-8', index=False)
+        else:
+            old_meta_data = pd.read_csv(meta_data_save_path, encoding='utf-8')
+            old_meta_data = np.array(old_meta_data)
+            merged_meta_data = np.concatenate((old_meta_data, meta_data), axis=0)
+            merged_meta_data = pd.DataFrame(merged_meta_data, columns=['file_name', 'sentence'])
+
+            # 清楚重复数据
+            merged_meta_data = merged_meta_data.drop_duplicates(subset=None, keep='first', inplace=False)
+            merged_meta_data.to_csv(meta_data_save_path, encoding='utf-8', index=False)
 
         print('下载结束')
 

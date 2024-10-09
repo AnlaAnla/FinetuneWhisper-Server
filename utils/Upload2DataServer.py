@@ -44,7 +44,7 @@ class Upload2DataServer:
                 <Audio name="audio" value="$audio" zoom="true" hotkey="ctrl+enter" />
                 <Header value="修改标签" />
                 <TextArea name="transcription" toName="audio" value="$transcription" 
-                    rows="4" editable="true" maxSubmissions="1" />
+                    rows="4" editable="false" maxSubmissions="1" />
                 </View>
                 '''
         }

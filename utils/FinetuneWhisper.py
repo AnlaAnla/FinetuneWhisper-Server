@@ -6,6 +6,7 @@ from transformers import WhisperForConditionalGeneration
 from transformers import WhisperProcessor
 from datasets import Audio
 import torch
+import time
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Union
@@ -70,7 +71,7 @@ class FinetuneWhisper:
         model.print_trainable_parameters()
 
         training_args = Seq2SeqTrainingArguments(
-            output_dir="reach-vb/train",  # change to a repo name of your choice
+            output_dir="train_result/train",  # change to a repo name of your choice
             per_device_train_batch_size=8,
             gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
             learning_rate=1e-4,
@@ -151,7 +152,7 @@ class SavePeftModelCallback(TrainerCallback):
             control: TrainerControl,
             **kwargs,
     ):
-        checkpoint_folder = os.path.join(args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
+        checkpoint_folder = os.path.join(args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}-{time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}")
 
         peft_model_path = os.path.join(checkpoint_folder, "adapter_model")
         kwargs["model"].save_pretrained(peft_model_path)
