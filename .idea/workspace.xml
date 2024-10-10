@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="重命名等更新">
-      <change afterPath="$PROJECT_DIR$/utils/RecognizeAudio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/MergeLora.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test01.py" beforeDir="false" afterPath="$PROJECT_DIR$/test01.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test02.py" beforeDir="false" afterPath="$PROJECT_DIR$/test02.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/ExportData.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ExportData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/FinetuneWhisper.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/FinetuneWhisper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Upload2DataServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/Upload2DataServer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/RecognizeAudio.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/RecognizeAudio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,6 +177,7 @@
       <workItem from="1727344493996" duration="3289000" />
       <workItem from="1727402783911" duration="649000" />
       <workItem from="1728439855674" duration="410000" />
+      <workItem from="1728525838620" duration="4236000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />

@@ -10,11 +10,12 @@ from utils.VideoSplitter import VideoSplitter
 from utils.FinetuneWhisper import FinetuneWhisper
 from utils.Upload2DataServer import Upload2DataServer
 from utils.ExportData import ExportData
+from utils.MergeLora import MergeLora
 from utils.RecognizeAudio import RecognizeAudio
 
 if sys.prefix == "/media/martin/DATA/miniconda3/envs/yolov8":
-    os.environ["LD_LIBRARY_PATH"] = "/media/martin/DATA/miniconda3/envs/yolov8/lib/python3.8/site-packages/nvidia/cudnn/lib"
-
+    os.environ[
+        "LD_LIBRARY_PATH"] = "/media/martin/DATA/miniconda3/envs/yolov8/lib/python3.8/site-packages/nvidia/cudnn/lib"
 
 # 保存配置文件的路径
 Config_file_path = 'config.json'
@@ -123,12 +124,12 @@ def the5_recognize_audio(_model_folder_name, _media_path):
     if _media_path is None:
         return "请放入音频或视频"
 
-    _model_folder_path = os.path.join(Train_result_path, _model_folder_name, "adapter_model")
-    recognizer = RecognizeAudio(_model_folder_path)
-    book = recognizer.run(_media_path)
-    print(book)
-    return book
+    _lora_folder_path = os.path.join(Train_result_path, _model_folder_name, "adapter_model")
+    mergeLora = MergeLora(lora_model_path=_lora_folder_path, model_save_dir=os.path.abspath(Model_path))
+    ct2_save_directory = mergeLora.run()
 
+    recognizer = RecognizeAudio(ct2_save_directory)
+    yield from recognizer.run(_media_path)
 
 
 def refresh_list():
@@ -196,7 +197,8 @@ def create_gradio_page():
             t5_btn.click(fn=the5_recognize_audio, inputs=[t5_model_folder_name, t5_audio_file], outputs=[t5_result])
 
         refresh_btn = gr.Button("🌀刷新")
-        refresh_btn.click(fn=refresh_list, outputs=[t1_folder_name, t2_folder_name, t4_folder_name, t5_model_folder_name])
+        refresh_btn.click(fn=refresh_list,
+                          outputs=[t1_folder_name, t2_folder_name, t4_folder_name, t5_model_folder_name])
 
     page.launch(server_name='0.0.0.0', server_port=1234)
 
