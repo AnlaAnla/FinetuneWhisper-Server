@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="重命名等更新">
-      <change afterPath="$PROJECT_DIR$/utils/MergeLora.py" afterDir="false" />
+    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="更新语音识别部分">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test01.py" beforeDir="false" afterPath="$PROJECT_DIR$/test01.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/MergeLora.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/MergeLora.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/RecognizeAudio.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/RecognizeAudio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +178,10 @@
       <workItem from="1727344493996" duration="3289000" />
       <workItem from="1727402783911" duration="649000" />
       <workItem from="1728439855674" duration="410000" />
-      <workItem from="1728525838620" duration="4236000" />
+      <workItem from="1728525838620" duration="16767000" />
+      <workItem from="1728613409275" duration="6308000" />
+      <workItem from="1728960393003" duration="10301000" />
+      <workItem from="1729143524255" duration="1519000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />
@@ -203,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727340020752</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更新语音识别部分">
+      <option name="closed" value="true" />
+      <created>1728530932854</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728530932854</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +224,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tab2, tab3" />
     <MESSAGE value="重命名等更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="重命名等更新" />
+    <MESSAGE value="更新语音识别部分" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新语音识别部分" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FuntineWhisper_Server$test01.coverage" NAME="test01 覆盖结果" MODIFIED="1727326978395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

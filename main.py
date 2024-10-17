@@ -5,7 +5,7 @@ import shutil
 import datetime
 import json
 import time
-from utils.utils import zip_folder, unzip_file, read_config, save_config, download_m3u8
+from utils.utils import zip_folder, unzip_file, read_config, save_config, download_m3u8_list
 from utils.VideoSplitter import VideoSplitter
 from utils.FinetuneWhisper import FinetuneWhisper
 from utils.Upload2DataServer import Upload2DataServer
@@ -14,8 +14,7 @@ from utils.MergeLora import MergeLora
 from utils.RecognizeAudio import RecognizeAudio
 
 if sys.prefix == "/media/martin/DATA/miniconda3/envs/yolov8":
-    os.environ[
-        "LD_LIBRARY_PATH"] = "/media/martin/DATA/miniconda3/envs/yolov8/lib/python3.8/site-packages/nvidia/cudnn/lib"
+    os.environ["LD_LIBRARY_PATH"] = "/media/martin/DATA/miniconda3/envs/yolov8/lib/python3.8/site-packages/nvidia/cudnn/lib"
 
 # 保存配置文件的路径
 Config_file_path = 'config.json'
@@ -28,9 +27,13 @@ Train_result_path = 'train_result/train'
 Temp_path = 'temp'
 Model_path = 'Model'
 
-os.makedirs(Pre_data_path, exist_ok=True)
+if os.path.exists(Pre_data_path):
+    shutil.rmtree(Pre_data_path)
+    os.makedirs(Pre_data_path, exist_ok=True)
 os.makedirs(Dataset_path, exist_ok=True)
-os.makedirs(Temp_path, exist_ok=True)
+if os.path.exists(Temp_path):
+    shutil.rmtree(Temp_path)
+    os.makedirs(Temp_path, exist_ok=True)
 
 
 # Gradio函数
@@ -38,7 +41,7 @@ def the1_upload_media2server(media_files, urls, folder_name):
     if folder_name is None:
         folder_name = "preData_" + time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')
 
-    folder_path = os.path.join(Pre_data_path, folder_name)
+    folder_path = os.path.join(os.path.abspath(Pre_data_path), folder_name)
     # 处理上传的媒体文件
     if media_files is not None:
 
@@ -49,17 +52,14 @@ def the1_upload_media2server(media_files, urls, folder_name):
 
     # 处理m3u8链接
     if urls is not None:
-        for url in urls.split('\n'):
-            print(url)
-            if url.strip():
-                download_m3u8(url.strip(), save_folder=folder_path)
-                print("下载: ", url.strip())
+        os.makedirs(folder_path, exist_ok=True)
+        download_m3u8_list(urls, save_folder=folder_path, temp_folder=os.path.abspath(Temp_path))
 
     # # 保存配置文件
     # if config is not None:
     #     save_config(config)
 
-    return f"上传结束 - {time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
+    return f"上传结束 - {folder_name}"
 
 
 def the2_split_upload(_folder_name: str, _project_name: str):
@@ -121,12 +121,28 @@ def the4_finetune_whisper(_folder_name):
 
 
 def the5_recognize_audio(_model_folder_name, _media_path):
+    if _model_folder_name is None:
+        return "请选择模型"
     if _media_path is None:
         return "请放入音频或视频"
 
-    _lora_folder_path = os.path.join(Train_result_path, _model_folder_name, "adapter_model")
-    mergeLora = MergeLora(lora_model_path=_lora_folder_path, model_save_dir=os.path.abspath(Model_path))
-    ct2_save_directory = mergeLora.run()
+    if _model_folder_name in os.listdir(Model_path):
+        print('存在: ', _model_folder_name)
+        ct2_save_directory = os.path.join(Model_path, _model_folder_name)
+    else:
+        print('不存在: ', _model_folder_name)
+        print("========清除该目录数据==========")
+        if len(os.listdir(Model_path)) != 0:
+            shutil.rmtree(Model_path)
+            os.makedirs(Model_path, exist_ok=True)
+
+        print("开始合并模型\n=================")
+        _lora_folder_path = os.path.join(Train_result_path, _model_folder_name, "adapter_model")
+        model_save_dir = os.path.join(os.path.abspath(Model_path), _model_folder_name)
+        temp_dir = os.path.join(os.path.abspath(Temp_path), _model_folder_name)
+
+        mergeLora = MergeLora(lora_model_path=_lora_folder_path, model_save_dir=model_save_dir, temp_dir=temp_dir)
+        ct2_save_directory = mergeLora.run()
 
     recognizer = RecognizeAudio(ct2_save_directory)
     yield from recognizer.run(_media_path)
@@ -136,7 +152,8 @@ def refresh_list():
     folder_name1 = gr.Dropdown(choices=os.listdir(Pre_data_path), label="选择原始数据")
     folder_name2 = gr.Dropdown(choices=os.listdir(Dataset_path), label="选择数据集名称")
     model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="选择模型名称")
-    return folder_name1, folder_name1, folder_name2, model_folder_name
+    t5_select_model_name = gr.Text(f"{os.listdir(Model_path)}", label="当前模型")
+    return folder_name1, folder_name1, folder_name2, model_folder_name, t5_select_model_name
 
 
 def create_gradio_page():
@@ -187,18 +204,19 @@ def create_gradio_page():
 
         with gr.Tab("5-试用模型"):
             with gr.Row("选择模型"):
-                t5_select_model_name = gr.Text(f"{os.listdir(Model_path)}")
-                t5_model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="选择模型名称")
-            t5_change_model_btn = gr.Button(value="切换模型", variant='primary')
+                t5_select_model_name = gr.Text(f"{os.listdir(Model_path)}", label="当前模型")
+                t5_model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="切换模型[注意,初次切换需要更长时间]")
+
             with gr.Row("进行识别"):
                 t5_audio_file = gr.Audio(sources="upload", type="filepath")
-                t5_result = gr.Textbox()
+                t5_result = gr.Textbox(label="识别结果")
             t5_btn = gr.Button(value="语音识别", variant='primary')
             t5_btn.click(fn=the5_recognize_audio, inputs=[t5_model_folder_name, t5_audio_file], outputs=[t5_result])
 
         refresh_btn = gr.Button("🌀刷新")
         refresh_btn.click(fn=refresh_list,
-                          outputs=[t1_folder_name, t2_folder_name, t4_folder_name, t5_model_folder_name])
+                          outputs=[t1_folder_name, t2_folder_name, t4_folder_name,
+                                   t5_model_folder_name, t5_select_model_name])
 
     page.launch(server_name='0.0.0.0', server_port=1234)
 
