@@ -54,10 +54,12 @@ class VideoSplitter:
             audio.write_audiofile(temp_audio_path)
             _media_path = temp_audio_path
 
-            result = self.model.transcribe(_media_path, beam_size=5, word_timestamps=True)
+            result = self.model.transcribe(_media_path, beam_size=5, word_timestamps=True,
+                                           language="zh")
             os.remove(temp_audio_path)
         else:
-            result = self.model.transcribe(_media_path, beam_size=5, word_timestamps=True)
+            result = self.model.transcribe(_media_path, beam_size=5, word_timestamps=True,
+                                           language="zh")
 
         segments, info = result
         print("语言预测为 '%s' ,概率是 %f" % (info.language, info.language_probability))
