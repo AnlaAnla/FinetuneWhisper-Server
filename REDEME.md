@@ -1,4 +1,10 @@
-
+# 启动方式
+```shell
+# 进入项目目录后
+sudo su
+conda activate yolov8
+./start
+```
 
 ```shell
 # fast whisper 链接cudnn的问题

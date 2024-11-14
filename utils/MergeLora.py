@@ -51,3 +51,8 @@ class MergeLora:
         print("移除: {}".format(self.temp_dir))
 
         return self.model_save_dir
+
+
+# if __name__ == '__main__':
+#     mergeLora = MergeLora(lora_model_path=_lora_folder_path, model_save_dir=model_save_dir, temp_dir=temp_dir)
+#     ct2_save_directory = mergeLora.run()

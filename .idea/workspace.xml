@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="细节的一些更新">
+      <change afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/FinetuneWhisper-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FinetuneWhisper-Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/VideoSplitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/VideoSplitter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/REDEME.md" beforeDir="false" afterPath="$PROJECT_DIR$/REDEME.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/MergeLora.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/MergeLora.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +63,7 @@
     &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/ML/RemoteProject/FinetuneWhisper-Server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/ML/RemoteProject/FinetuneWhisper-Server/temp&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -69,6 +75,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\ML\RemoteProject\FinetuneWhisper-Server\temp" />
       <recent name="D:\Code\ML\Project\FuntineWhisper-Server\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -180,6 +187,18 @@
       <workItem from="1729143524255" duration="4895000" />
       <workItem from="1729218654302" duration="3253000" />
       <workItem from="1729230138316" duration="6130000" />
+      <workItem from="1729562958444" duration="224000" />
+      <workItem from="1729579916062" duration="1740000" />
+      <workItem from="1729583403702" duration="774000" />
+      <workItem from="1729750272191" duration="8000" />
+      <workItem from="1729750311842" duration="11000" />
+      <workItem from="1731291567635" duration="1815000" />
+      <workItem from="1731295003718" duration="7250000" />
+      <workItem from="1731377778512" duration="1821000" />
+      <workItem from="1731381707373" duration="11077000" />
+      <workItem from="1731463844467" duration="4397000" />
+      <workItem from="1731476071915" duration="11723000" />
+      <workItem from="1731551162199" duration="335000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />
@@ -221,11 +240,30 @@
       <option name="project" value="LOCAL" />
       <updated>1729153489120</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="细节的一些更新">
+      <option name="closed" value="true" />
+      <created>1729562968114</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729562968114</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tab2, tab3" />

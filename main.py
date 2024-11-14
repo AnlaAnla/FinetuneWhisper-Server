@@ -91,9 +91,14 @@ def the2_split_upload(_folder_name: str, _project_name: str):
     return f"处理和上传结束 - {time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
 
 
-def the3_download_data(_project_id, _folder_name: str):
-    if int(_project_id) == 0:
+def the3_download_data(_project_start_id, _project_end_id, _folder_name: str):
+    _project_start_id = int(_project_start_id)
+    _project_end_id = int(_project_end_id)
+
+    if _project_start_id == 0:
         return "请输入label-studio项目ID"
+    if _project_end_id == 0 or _project_end_id < _project_start_id:
+        _project_end_id = _project_start_id
 
     if _folder_name is None or _folder_name == '':
         _folder_name = f"DataSet_{time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
@@ -104,10 +109,15 @@ def the3_download_data(_project_id, _folder_name: str):
     label_studio_token = Config['label_studio_token']
     label_studio_url = Config['label_studio_url']
 
-    ExportData(project_id=_project_id,
-               audio_data_dir_path=audio_data_dir_path,
-               label_studio_url=label_studio_url,
-               label_studio_token=label_studio_token)
+    # 开始批量导入
+    for project_id in range(_project_start_id, _project_end_id + 1):
+        try:
+            ExportData(project_id=project_id,
+                       audio_data_dir_path=audio_data_dir_path,
+                       label_studio_url=label_studio_url,
+                       label_studio_token=label_studio_token)
+        except Exception as e:
+            print(e)
 
     return f"下载结束, 保存为: {_folder_name}"
 
@@ -185,13 +195,14 @@ def create_gradio_page():
 
         with gr.Tab("3-下载训练数据"):
             with gr.Row():
-                t3_project_id = gr.Number(label="输入label-studio项目ID")
+                t3_project_id = gr.Number(label="输入label-studio项目起始ID")
+                t3_project_end_id = gr.Number(label="输入导入的结尾ID, 为0则不进行范围导入")
                 t3_folder_name = gr.Textbox(lines=1, label="输入保存的数据集名称, 不输入则自动创建")
             with gr.Row():
                 t3_result = gr.Textbox(label="处理结果")
             t3_download_btn = gr.Button(value="开始下载", variant='primary')
             t3_download_btn.click(fn=the3_download_data,
-                                  inputs=[t3_project_id, t3_folder_name],
+                                  inputs=[t3_project_id, t3_project_end_id,t3_folder_name],
                                   outputs=[t3_result])
 
         with gr.Tab("4-微调模型"):
