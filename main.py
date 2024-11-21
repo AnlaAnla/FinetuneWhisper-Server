@@ -49,16 +49,18 @@ def the1_upload_media2server(media_files, urls, folder_name):
         for media_file in media_files:
             print("保存: ", media_file, folder_path)
             shutil.copy(media_file, folder_path)
+        print("\n上传结束:\n", media_files)
 
     # 处理m3u8链接
     if urls is not None:
         os.makedirs(folder_path, exist_ok=True)
         download_m3u8_list(urls, save_folder=folder_path, temp_folder=os.path.abspath(Temp_path))
+        print("\n上传结束:\n", urls)
 
     # # 保存配置文件
     # if config is not None:
     #     save_config(config)
-
+    print('+++'*20, time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss'))
     return f"上传结束 - {folder_name}"
 
 
@@ -130,11 +132,13 @@ def the4_finetune_whisper(_folder_name):
     return f"微调结束 - {time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')}"
 
 
-def the5_recognize_audio(_model_folder_name, _media_path):
+def the5_recognize_audio(_model_folder_name, _audio_path, _video_path):
     if _model_folder_name is None:
         return "请选择模型"
-    if _media_path is None:
+    if _audio_path is None and _video_path is None:
         return "请放入音频或视频"
+
+    _media_path = _audio_path or _video_path
 
     if _model_folder_name in os.listdir(Model_path):
         print('存在: ', _model_folder_name)
@@ -218,11 +222,15 @@ def create_gradio_page():
                 t5_select_model_name = gr.Text(f"{os.listdir(Model_path)}", label="当前模型")
                 t5_model_folder_name = gr.Dropdown(choices=os.listdir(Train_result_path), label="切换模型[注意,初次切换需要更长时间]")
 
-            with gr.Row("进行识别"):
+            with gr.Row("上传数据, 只上传一个, 上传2个默认取音频"):
                 t5_audio_file = gr.Audio(sources="upload", type="filepath")
+                t5_video_file = gr.Video()
+            with gr.Row("识别结果"):
                 t5_result = gr.Textbox(label="识别结果")
             t5_btn = gr.Button(value="语音识别", variant='primary')
-            t5_btn.click(fn=the5_recognize_audio, inputs=[t5_model_folder_name, t5_audio_file], outputs=[t5_result])
+            t5_btn.click(fn=the5_recognize_audio,
+                         inputs=[t5_model_folder_name, t5_audio_file, t5_video_file],
+                         outputs=[t5_result])
 
         refresh_btn = gr.Button("🌀刷新")
         refresh_btn.click(fn=refresh_list,
@@ -233,4 +241,9 @@ def create_gradio_page():
 
 
 if __name__ == "__main__":
+    print("==="*10)
+    t = time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')
+    print(f'{t} :启动Whisper微调后台')
+    print("==="*10)
+
     create_gradio_page()
