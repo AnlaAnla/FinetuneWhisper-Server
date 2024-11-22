@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="增加了启动脚本和批量导出label-studio数据">
+    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="更新启动方式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test01.py" beforeDir="false" afterPath="$PROJECT_DIR$/test01.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test02.py" beforeDir="false" afterPath="$PROJECT_DIR$/test02.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/FinetuneWhisper.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/FinetuneWhisper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/RecognizeAudio.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/RecognizeAudio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/VideoSplitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/VideoSplitter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +202,9 @@
       <workItem from="1731896316349" duration="9150000" />
       <workItem from="1731982148864" duration="10821000" />
       <workItem from="1732069876603" duration="8417000" />
-      <workItem from="1732155101017" duration="7594000" />
+      <workItem from="1732155101017" duration="15059000" />
+      <workItem from="1732185096813" duration="1366000" />
+      <workItem from="1732256662479" duration="1634000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />
@@ -257,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731552812274</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="更新启动方式">
+      <option name="closed" value="true" />
+      <created>1732165809760</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732165809761</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +293,8 @@
     <MESSAGE value="更新语音识别部分" />
     <MESSAGE value="细节的一些更新" />
     <MESSAGE value="增加了启动脚本和批量导出label-studio数据" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加了启动脚本和批量导出label-studio数据" />
+    <MESSAGE value="更新启动方式" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新启动方式" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FuntineWhisper_Server$test01.coverage" NAME="test01 覆盖结果" MODIFIED="1727326978395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

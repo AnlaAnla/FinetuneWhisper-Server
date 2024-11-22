@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo "123456" | sudo -S bash -c "
   # 关闭Python的输出缓冲
   export PYTHONUNBUFFERED=1

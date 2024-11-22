@@ -10,8 +10,18 @@ class RecognizeAudio:
         self.model = WhisperModel(model_path, device=device)
 
     def run(self, media_path):
-        result = self.model.transcribe(media_path, beam_size=5, word_timestamps=True,
-                                       language='zh')
+        vad_param = {
+            "threshold": 0.5,
+            "min_speech_duration_ms": 1000,
+            "min_silence_duration_ms": 100,
+            "max_speech_duration_s": 30,
+            "speech_pad_ms": 2000
+        }
+        result = self.model.transcribe(media_path, beam_size=5, language="zh",
+                          vad_filter=True,
+                          vad_parameters=vad_param,
+                          no_speech_threshold=0.2,
+                          max_initial_timestamp=9999999.0)
 
         segments, info = result
         book = ''

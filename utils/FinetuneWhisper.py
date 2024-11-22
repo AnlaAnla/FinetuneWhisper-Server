@@ -39,9 +39,10 @@ class FinetuneWhisper:
         # dataset_path = r"D:\Code\ML\Audio\card_audio_data01\project-10-at-2024-09-23-09-07-87b7a955"
         language = "Chinese"
         print(f"默认语言为:{language}, 数据集路径为:{dataset_path}")
-        common_voice = DatasetDict()
-        common_voice["train"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
-        common_voice["test"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
+        # common_voice = DatasetDict()
+        # common_voice["train"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
+        # common_voice["test"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
+        common_voice = load_dataset("audiofolder", data_dir=dataset_path, split="train").train_test_split(test_size=0.1)
 
         print(common_voice)
         common_voice = common_voice.cast_column("audio", Audio(sampling_rate=16000))
