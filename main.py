@@ -241,9 +241,9 @@ def create_gradio_page():
 
 
 if __name__ == "__main__":
-    print("==="*10)
+    print("==="*20)
     t = time.strftime('%YY_%mM_%dD_%Hh_%Mm_%Ss')
     print(f'{t} :启动Whisper微调后台')
-    print("==="*10)
+    print("==="*20)
 
     create_gradio_page()

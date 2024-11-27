@@ -18,15 +18,15 @@ class VideoSplitter:
     def __init__(self):
         os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
         # model_size = "medium"
-        model_size = "Model/checkpoint-100-2024Y_11M_21D_16h_50m_33s"
+        model_size = "Model/checkpoint-100-2024Y_11M_25D_17h_26m_29s"
 
         self.vad_param = {
-                "threshold": 0.5,
-                "min_speech_duration_ms": 1000,
-                "min_silence_duration_ms": 100,
-                "max_speech_duration_s": 30,
-                "speech_pad_ms": 2000
-            }
+            "threshold": 0.5,
+            "min_speech_duration_ms": 1000,
+            "min_silence_duration_ms": 100,
+            "max_speech_duration_s": 30,
+            "speech_pad_ms": 2000
+        }
 
         self.media_num = 0
         self.model = WhisperModel(model_size, device="cuda")
@@ -63,20 +63,18 @@ class VideoSplitter:
             audio.write_audiofile(temp_audio_path)
             _media_path = temp_audio_path
 
-
-
             result = self.model.transcribe(_media_path, beam_size=5, language="zh",
-                          vad_filter=True,
-                          vad_parameters=self.vad_param,
-                          no_speech_threshold=0.2,
-                          max_initial_timestamp=9999999.0)
+                                           vad_filter=True,
+                                           vad_parameters=self.vad_param,
+                                           no_speech_threshold=0.4,
+                                           max_initial_timestamp=9999999.0)
             os.remove(temp_audio_path)
         else:
             result = self.model.transcribe(_media_path, beam_size=5, language="zh",
-                          vad_filter=True,
-                          vad_parameters=self.vad_param,
-                          no_speech_threshold=0.2,
-                          max_initial_timestamp=9999999.0)
+                                           vad_filter=True,
+                                           vad_parameters=self.vad_param,
+                                           no_speech_threshold=0.4,
+                                           max_initial_timestamp=9999999.0)
 
         segments, info = result
         print("语言预测为 '%s' ,概率是 %f" % (info.language, info.language_probability))

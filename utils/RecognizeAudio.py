@@ -18,10 +18,10 @@ class RecognizeAudio:
             "speech_pad_ms": 2000
         }
         result = self.model.transcribe(media_path, beam_size=5, language="zh",
-                          vad_filter=True,
-                          vad_parameters=vad_param,
-                          no_speech_threshold=0.2,
-                          max_initial_timestamp=9999999.0)
+                                       vad_filter=True,
+                                       vad_parameters=vad_param,
+                                       no_speech_threshold=0.4,
+                                       max_initial_timestamp=9999999.0)
 
         segments, info = result
         book = ''

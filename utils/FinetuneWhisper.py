@@ -42,7 +42,8 @@ class FinetuneWhisper:
         # common_voice = DatasetDict()
         # common_voice["train"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
         # common_voice["test"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
-        common_voice = load_dataset("audiofolder", data_dir=dataset_path, split="train").train_test_split(test_size=0.1)
+        common_voice = load_dataset("audiofolder", data_dir=dataset_path, split="train").train_test_split(test_size=0.2)
+        common_voice['train'] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
 
         print(common_voice)
         common_voice = common_voice.cast_column("audio", Audio(sampling_rate=16000))
@@ -56,7 +57,7 @@ class FinetuneWhisper:
                                         num_proc=1)
         data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=self.processor)
 
-        metric = evaluate.load("wer")
+        # metric = evaluate.load("wer")
         model = WhisperForConditionalGeneration.from_pretrained(model_name_or_path,
                                                                 quantization_config=BitsAndBytesConfig(
                                                                     load_in_8bit=True),
@@ -76,7 +77,7 @@ class FinetuneWhisper:
             per_device_train_batch_size=8,
             gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
             learning_rate=1e-4,
-            warmup_steps=2,
+            warmup_steps=25,
             num_train_epochs=1,
             eval_strategy="steps",
             fp16=False,
