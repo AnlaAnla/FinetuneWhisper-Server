@@ -22,7 +22,7 @@ class VideoSplitter:
 
         self.vad_param = {
             "threshold": 0.5,
-            "min_speech_duration_ms": 1000,
+            "min_speech_duration_ms": 250,
             "min_silence_duration_ms": 100,
             "max_speech_duration_s": 30,
             "speech_pad_ms": 2000

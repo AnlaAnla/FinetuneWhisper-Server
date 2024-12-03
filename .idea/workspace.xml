@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="修改预测参数">
+      <change afterPath="$PROJECT_DIR$/utils/transfer_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test01.py" beforeDir="false" afterPath="$PROJECT_DIR$/test01.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test02.py" beforeDir="false" afterPath="$PROJECT_DIR$/test02.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/FinetuneWhisper.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/FinetuneWhisper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/RecognizeAudio.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/RecognizeAudio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/VideoSplitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/VideoSplitter.py" afterDir="false" />
@@ -208,7 +207,11 @@
       <workItem from="1732502554056" duration="667000" />
       <workItem from="1732503236272" duration="12334000" />
       <workItem from="1732588618398" duration="11574000" />
-      <workItem from="1732675503382" duration="12726000" />
+      <workItem from="1732675503382" duration="14878000" />
+      <workItem from="1732760989245" duration="9785000" />
+      <workItem from="1732846584188" duration="14066000" />
+      <workItem from="1733107607567" duration="8445000" />
+      <workItem from="1733192766634" duration="443000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />
@@ -282,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732261700243</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="修改预测参数">
+      <option name="closed" value="true" />
+      <created>1732702908738</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732702908738</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

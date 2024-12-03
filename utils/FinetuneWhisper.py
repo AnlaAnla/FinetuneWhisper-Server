@@ -77,8 +77,8 @@ class FinetuneWhisper:
             per_device_train_batch_size=8,
             gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
             learning_rate=1e-4,
-            warmup_steps=25,
-            num_train_epochs=1,
+            warmup_steps=15,
+            num_train_epochs=4,
             eval_strategy="steps",
             fp16=False,
             per_device_eval_batch_size=8,
