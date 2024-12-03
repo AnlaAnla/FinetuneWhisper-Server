@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 
 app = FastAPI()
 
-FILE_PATH = r"/media/martin/DATA/_ML/RemoteProject/FinetuneWhisper-Server/temp/11metadata.csv"
+FILE_PATH = r"/media/martin/DATA/_ML/RemoteProject/FinetuneWhisper-Server/temp/11meta2.txt"
 
 
 @app.get("/download")

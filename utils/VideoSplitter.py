@@ -10,6 +10,7 @@ import pandas as pd
 import os
 import numpy as np
 import shutil
+from tool.SentenceClassify import SentenceClassify
 
 video_match_list = [".mp4", ".avi"]
 
@@ -18,7 +19,8 @@ class VideoSplitter:
     def __init__(self):
         os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
         # model_size = "medium"
-        model_size = "Model/checkpoint-100-2024Y_11M_25D_17h_26m_29s"
+        model_size = "Model/checkpoint-100-2024Y_11M_29D_11h_55m_31s"
+        tool_model = "ToolModel/sentence_judge_bert03"
 
         self.vad_param = {
             "threshold": 0.5,
@@ -30,6 +32,8 @@ class VideoSplitter:
 
         self.media_num = 0
         self.model = WhisperModel(model_size, device="cuda")
+
+        self.sentence_classifier = SentenceClassify(tool_model)
 
     def run(self, media_folder, data_save_dir):
         audio_save_dir = os.path.join(data_save_dir, "audio")
@@ -166,6 +170,12 @@ class VideoSplitter:
 
             # 排除字数为1的音频
             if len(text) < 2:
+                continue
+
+            if self.sentence_classifier.classify(text) == 0:
+                print("~~" * 10)
+                print("|过滤掉|: ", text)
+                print("~~" * 10)
                 continue
 
             cut_audio = audio.subclip(start_time, end_time)
