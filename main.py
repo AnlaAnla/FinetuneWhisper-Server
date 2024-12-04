@@ -27,9 +27,9 @@ Train_result_path = 'train_result/train'
 Temp_path = 'temp'
 Model_path = 'Model'
 
-if os.path.exists(Pre_data_path):
-    shutil.rmtree(Pre_data_path)
-    os.makedirs(Pre_data_path, exist_ok=True)
+# if os.path.exists(Pre_data_path):
+#     shutil.rmtree(Pre_data_path)
+#     os.makedirs(Pre_data_path, exist_ok=True)
 os.makedirs(Dataset_path, exist_ok=True)
 if os.path.exists(Temp_path):
     shutil.rmtree(Temp_path)

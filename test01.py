@@ -7,7 +7,7 @@ device = "cuda"
 model_path = r"/media/martin/DATA/_ML/RemoteProject/FinetuneWhisper-Server/Model/checkpoint-100-2024Y_11M_29D_11h_55m_31s"
 model = WhisperModel(model_path, device=device)
 
-media_path = r"pre_data/preData_2024Y_11M_29D_13h_20m_58s/tt184__0_2024Y_11M_14D_13h_01m_37s.mp3"
+media_path = r"/media/martin/DATA/_ML/RemoteProject/FinetuneWhisper-Server/pre_data/preData_2024Y_12M_03D_18h_54m_50s/0_2024Y_12M_03D_18h_54m_50s.mp4"
 vad_param = {
     "threshold": 0.5,
     "min_speech_duration_ms": 250,
@@ -18,6 +18,7 @@ vad_param = {
 
 result = model.transcribe(media_path, beam_size=5, language="zh",
                           vad_filter=True,
+                        word_timestamps=True,
                           vad_parameters=vad_param,
                           no_speech_threshold=0.2,
                           max_initial_timestamp=9999999.0

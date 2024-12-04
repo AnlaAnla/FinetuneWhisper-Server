@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="文件传输的代码">
-      <change afterPath="$PROJECT_DIR$/test03.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/tool/SentenceClassify.py" afterDir="false" />
+    <list default="true" id="add2233f-9ccd-4c8a-b4db-c1b985be0902" name="更改" comment="增加 对专业术语文本分类sentence 的过滤, 在video splitter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test01.py" beforeDir="false" afterPath="$PROJECT_DIR$/test01.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/VideoSplitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/VideoSplitter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/transfer_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/tool/transfer_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +209,9 @@
       <workItem from="1732760989245" duration="9785000" />
       <workItem from="1732846584188" duration="14066000" />
       <workItem from="1733107607567" duration="8445000" />
-      <workItem from="1733192766634" duration="12726000" />
+      <workItem from="1733192766634" duration="16763000" />
+      <workItem from="1733278436950" duration="615000" />
+      <workItem from="1733284039066" duration="3837000" />
     </task>
     <task id="LOCAL-00001" summary="tab2, tab3">
       <option name="closed" value="true" />
@@ -301,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733193233558</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="增加 对专业术语文本分类sentence 的过滤, 在video splitter">
+      <option name="closed" value="true" />
+      <created>1733215837314</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733215837314</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +335,8 @@
     <MESSAGE value="更新启动方式" />
     <MESSAGE value="修改预测参数" />
     <MESSAGE value="文件传输的代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="文件传输的代码" />
+    <MESSAGE value="增加 对专业术语文本分类sentence 的过滤, 在video splitter" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加 对专业术语文本分类sentence 的过滤, 在video splitter" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FuntineWhisper_Server$test01.coverage" NAME="test01 覆盖结果" MODIFIED="1727326978395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

@@ -19,6 +19,7 @@ class RecognizeAudio:
         }
         result = self.model.transcribe(media_path, beam_size=5, language="zh",
                                        vad_filter=True,
+                                       word_timestamps=True,
                                        vad_parameters=vad_param,
                                        no_speech_threshold=0.4,
                                        max_initial_timestamp=9999999.0)

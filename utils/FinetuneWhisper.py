@@ -32,7 +32,7 @@ class FinetuneWhisper:
         os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
         # model_name_or_path = "openai/whisper-large-v3"
-        model_name_or_path = "openai/whisper-medium"
+        model_name_or_path = "/media/martin/DATA/_ML/Model/whisper-large-v3-turbo"
         task = "transcribe"
 
         # 此处加载我的数据集
@@ -42,7 +42,7 @@ class FinetuneWhisper:
         # common_voice = DatasetDict()
         # common_voice["train"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
         # common_voice["test"] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
-        common_voice = load_dataset("audiofolder", data_dir=dataset_path, split="train").train_test_split(test_size=0.2)
+        common_voice = load_dataset("audiofolder", data_dir=dataset_path, split="train").train_test_split(test_size=0.1)
         common_voice['train'] = load_dataset("audiofolder", data_dir=dataset_path, split="train")
 
         print(common_voice)
@@ -77,13 +77,13 @@ class FinetuneWhisper:
             per_device_train_batch_size=8,
             gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
             learning_rate=1e-4,
-            warmup_steps=15,
-            num_train_epochs=4,
+            warmup_steps=30,
+            num_train_epochs=1,
             eval_strategy="steps",
             fp16=False,
             per_device_eval_batch_size=8,
             generation_max_length=128,
-            logging_steps=100,
+            logging_steps=50,
             max_steps=100,  # only for testing purposes, remove this from your final run :)
             remove_unused_columns=False,
             # required as the PeftModel forward doesn't have the signature of the wrapped model's forward

@@ -10,7 +10,7 @@ import pandas as pd
 import os
 import numpy as np
 import shutil
-from tool.SentenceClassify import SentenceClassify
+from utils.tool.SentenceClassify import SentenceClassify
 
 video_match_list = [".mp4", ".avi"]
 
@@ -19,7 +19,7 @@ class VideoSplitter:
     def __init__(self):
         os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
         # model_size = "medium"
-        model_size = "Model/checkpoint-100-2024Y_11M_29D_11h_55m_31s"
+        model_size = "Model/checkpoint-100-2024Y_12M_04D_15h_24m_32s"
         tool_model = "ToolModel/sentence_judge_bert03"
 
         self.vad_param = {
@@ -69,6 +69,7 @@ class VideoSplitter:
 
             result = self.model.transcribe(_media_path, beam_size=5, language="zh",
                                            vad_filter=True,
+                                           word_timestamps=True,
                                            vad_parameters=self.vad_param,
                                            no_speech_threshold=0.4,
                                            max_initial_timestamp=9999999.0)
@@ -76,6 +77,7 @@ class VideoSplitter:
         else:
             result = self.model.transcribe(_media_path, beam_size=5, language="zh",
                                            vad_filter=True,
+                                           word_timestamps=True,
                                            vad_parameters=self.vad_param,
                                            no_speech_threshold=0.4,
                                            max_initial_timestamp=9999999.0)
@@ -160,6 +162,7 @@ class VideoSplitter:
 
         # 开始剪切的对应的字幕和音频
         meta_data = []
+        filter_num = 0
         for i, data in enumerate(audio_text_datas):
             text: str
             start_time, end_time, text = data['start'], data['end'], data['text']
@@ -170,9 +173,11 @@ class VideoSplitter:
 
             # 排除字数为1的音频
             if len(text) < 2:
+                filter_num += 1
                 continue
 
             if self.sentence_classifier.classify(text) == 0:
+                filter_num += 1
                 print("~~" * 10)
                 print("|过滤掉|: ", text)
                 print("~~" * 10)
@@ -192,6 +197,10 @@ class VideoSplitter:
             #     f.write(info)
 
             print(f"{i}: [{start_time}, {end_time}] : {text}")
+
+        print("=="*20)
+        print(f"过滤数/总数: {filter_num}/{len(audio_text_datas)}")
+        print("=="*20)
 
         pre_metadata_path = os.path.join(data_save_dir, "pre_metadata.csv")
         meta_data = np.array(meta_data)
